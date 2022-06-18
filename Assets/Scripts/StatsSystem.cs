@@ -50,12 +50,11 @@ public class StatsSystem : MonoBehaviour
         // now that we have some stats and our multiplier values let's calculate our style, luck and ryhtmn based on these values.
 
         // style should be based off our strength and be converted at a rate of 1 : 1.
-        float style = strength;
+        float style = STR*strength;
         // luck should be based off our intelligence and be converted at a rate of 1 : 1.5f
-        float luck = 1.5f*intelligence;
+        float luck = (INT * intelligence) / 1.5f;
         // rhythm should be based off our agility and be converted at a rate of 1 : 0.5.
-        float rhythm = 0.5f*agility;
-
+        float rhythm = (AGI* intelligence) / 0.5f;
         // Debug out our current dancing stat values (style, luck, rhythm)
         Debug.Log("Style = " + style);
         Debug.Log("Luck = " + luck);
@@ -63,11 +62,27 @@ public class StatsSystem : MonoBehaviour
         // now let's imagine that our level has increased; and we've been granted 10 new stat points.
         // let's distribute those stats amoungst our strength and agility and intelligence.
         int additionalPoints = 10;
-        
+
+        int strengthUp = Random.Range(0, 6);
+        strength += strengthUp;
+        additionalPoints = additionalPoints - strengthUp;
+        int agilityUp = Random.Range(0, 6);
+        agility += agilityUp;
+        additionalPoints = additionalPoints - agilityUp;
+        intelligence += additionalPoints;
+
         // Debug out our new physical stat values
-        
+        Debug.Log(strength);
+        Debug.Log(agility);
+        Debug.Log(intelligence);
+
         // let's recalculate our style, luck and rhytmn as our initial stats have changed.
-      
+        float styleUP = style + (STR * strength);
+        float luckUP = luck + ((INT * intelligence) / 1.5f);
+        float rhythmUP = rhythm + ((AGI * agility) / .5f);
         // Debug out our new dancing stat values
+        Debug.Log("Style = " + styleUP);
+        Debug.Log("Luck = " + luckUP);
+        Debug.Log("Rhythm = " + rhythmUP);
     }
 }
